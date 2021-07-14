@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SOUTH TEXAS NET INTERESTS</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"/>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/underscore@1.13.1/underscore-umd-min.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg fixed-top">
+            <a class="navbar-brand"><h2>SOUTH TEXAS NET OWNERSHIP</h2></a>
+        </nav>
+        <div class="container-fluid pt-5 pb-3">
+            <div class="row"><br></div>
+            <div class="row">
+                <div class="col-md-3">
+                    <h6>Select Partner</h6>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <select id="partner-name">
+                                <option value="default">PATNERS</option> 
+                            </select>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h6>Wells Partner in:</h6> <!-- ceate dyanmic "partner" -->
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <select id="well-options" multiple></select> 
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Curves:</h1>
+                    <div id=oilDeclineCurve></div>
+                    <div id=gasDeclineCurve></div>
+                </div>
+            </div>
+            <script src="static/partner_net.json"></script>
+            <script src="js/net.js"></script>
+        </body>
+        </html>
