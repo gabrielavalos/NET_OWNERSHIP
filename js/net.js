@@ -87,13 +87,60 @@ console.log(wellIntersts);
         
         //zip all_dates to each netOilProductionForWell for that date (dates  are repeated at this point, need to add all wells for date)
         var oilReadyToAddList = _.zip(all_dates, netOilProductionForWell);
+
+        //DONT NEED THIS
         var oilReadyToAdd = _.object(all_dates, netOilProductionForWell);
         
         console.log("oilReadyToAdd", oilReadyToAdd);
         console.log(typeof oilReadyToAddList);
         console.log(Array.isArray(oilReadyToAddList)); //IT IS AN OBJECT, NOT AN ARRAY
-        console.log("oilReadyToAddList", oilReadyToAddList);
+        //console.log("oilReadyToAddList", oilReadyToAddList);
         console.log(oilReadyToAddList[0][0]); //correct way of accesing date 
+        //console.log(Object.getOwnPropertyNames(oilReadyToAddList));
+        
+       var groupedDays = _.groupBy(oilReadyToAddList, "0");
+       console.log(groupedDays); //not an array
+
+       console.log((typeof groupedDays))
+
+
+       
+       ///TEST///
+      //console.log(Object.values(groupedDays))
+     // Object.values(groupedDays).forEach((day)=> {day.forEach((well) => console.log(well))})
+    //    var productionByDate = {}
+
+    //     oilReadyToAddList.forEach((day) => {
+    //         day["Date"] = day["0"];
+    //         day["Production"] = day["1"];
+    //         day.splice(0, 2);
+           
+            
+    //     });
+        
+       
+    //      console.log(oilReadyToAddList);
+
+    //      productionByDate = _.groupBy(oilReadyToAddList, "Date"); /// PERHAPS ONLY ADD INDEX[1]???
+    //      console.log(productionByDate);
+
+
+
+
+//// TEST ////
+
+        
+        // productionByDate = oilReadyToAddList.map(day =>{
+        //             day['Date'] = day['0']; // Assign new key
+        //             delete day['0']; // Delete old key
+        // });
+        //         console.log(productionByDate);
+            
+        
+
+        // productionByDate = oilReadyToAddList.map(date => [date][0][0]);
+        //     console.log(productionByDate)
+        
         //console.log("===", Object.keys(oilReadyToAddList));
 
         //console.log(Object.entries(oilReadyToAddList));
