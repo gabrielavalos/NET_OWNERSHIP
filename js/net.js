@@ -71,8 +71,8 @@ console.log(wellIntersts);
         all_dates.push(site[2])
     }}
     );
-    console.log(newData); //CHECK THAT ONLY THEIR RELEVANT DATA IS BEING STORED IN newData
-    console.log("all_dates", all_dates)
+   // console.log(newData); //CHECK THAT ONLY THEIR RELEVANT DATA IS BEING STORED IN newData
+   // console.log("all_dates", all_dates)
 
     
 
@@ -83,7 +83,7 @@ console.log(wellIntersts);
             netOilProductionForWell = newData.map(x => x[3] * wellIntersts[x[0]]);
             netGasProductionForWell = newData.map(x => x[2] * wellIntersts[x[0]])} //SITE[2]*DESIGNATED INTEREST
         });
-        console.log("netOilProductionForWell", netOilProductionForWell);
+        //console.log("netOilProductionForWell", netOilProductionForWell);
         
         //zip all_dates to each netOilProductionForWell for that date (dates  are repeated at this point, need to add all wells for date)
         var oilReadyToAddList = _.zip(all_dates, netOilProductionForWell);
@@ -91,24 +91,64 @@ console.log(wellIntersts);
         //DONT NEED THIS
         var oilReadyToAdd = _.object(all_dates, netOilProductionForWell);
         
-        console.log("oilReadyToAdd", oilReadyToAdd);
-        console.log(typeof oilReadyToAddList);
-        console.log(Array.isArray(oilReadyToAddList)); //IT IS AN OBJECT, NOT AN ARRAY
+        //console.log("oilReadyToAdd", oilReadyToAdd);
+       // console.log(typeof oilReadyToAddList);
+       // console.log(Array.isArray(oilReadyToAddList)); //IT IS AN OBJECT, NOT AN ARRAY
         //console.log("oilReadyToAddList", oilReadyToAddList);
-        console.log(oilReadyToAddList[0][0]); //correct way of accesing date 
+        //console.log(oilReadyToAddList[0][0]); //correct way of accesing date 
         //console.log(Object.getOwnPropertyNames(oilReadyToAddList));
         
        var groupedDays = _.groupBy(oilReadyToAddList, "0");
-       console.log(groupedDays); //not an array
+       //console.log(groupedDays); //not an array
 
-       console.log((typeof groupedDays))
+       //console.log((typeof groupedDays))
 
 
-       
+      
        ///TEST///
       //console.log(Object.values(groupedDays))
-     // Object.values(groupedDays).forEach((day)=> {day.forEach((well) => console.log(well))})
+      Object.values(groupedDays).forEach((day1) =>
+      {day1.forEach((well1) => {
+          //delete well1["0"];
+          well1.splice(0,1).flat();
+        //console.log(well1.splice(1,1));
+        //console.log(well1);
+       // console.log(Object.getOwnPropertyNames(well1));
+    }
+        )});
+
+        //console.log(("groupedDays", groupedDays))
+        flattenDays = [];
+        
+        const reducer = (accumulator, currentValue) => accumulator + currentValue;
+        Object.values(groupedDays).forEach(x => 
+            {
+                //console.log("flat", x.flat(1));
+                var y = x.flat(1);
+
+                //console.log(x);
+                flattenDays.push(y);
+            }
+            );
+            //console.log(groupedDays); // NOT FLAT
+            //console.log(flattenDays); //FLATTEN
+
+
+    var addedDays= flattenDays.map(x => x.reduce(reducer))
+
+//console.log(addedDays);
+
+            var site_date = [...new Set(all_dates)];
+
+            //console.log(site_date);
+
+           var pairedOilAndDates =  _.object(site_date, addedDays);
+
+           //console.log(pairedOilAndDates); /// GOT OT
+            
     //    var productionByDate = {}
+
+    //console.log((flattenGroupDays))
 
     //     oilReadyToAddList.forEach((day) => {
     //         day["Date"] = day["0"];
@@ -266,13 +306,13 @@ console.log(wellIntersts);
    }
     //console.log(arrayOfArrays);
     //REDUCE EACH ARRAY (REDUCE SUMS ALL VALUES IN AN ARRAY)
-    const reducer = (accumulator, currentValue) => accumulator + currentValue;
+    //const reducer = (accumulator, currentValue) => accumulator + currentValue;
    // allOilNetsAdded = arrayOfOilArrays.map(x => x.reduce(reducer))
     // allGasNetsAdded = arrayOfGasArrays.map(x => x.reduce(reducer))
     //console.log(allNetsAdded);
 
     //GET ALL UNIQUE DATES
-    var site_date = [...new Set(all_dates)];
+    //var site_date = [...new Set(all_dates)];
     //console.log(site_date);
     
     //})};
@@ -291,7 +331,7 @@ console.log(wellIntersts);
   
             var dataOil = [{
                 x: site_date,
-                y: allOilNetsAdded,
+                y: addedDays,
                 type: "line",
                 line:
                     {color: "green"}}];
