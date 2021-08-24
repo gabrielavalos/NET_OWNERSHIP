@@ -1,25 +1,52 @@
+d3.json('./static/daily-partner-ownership.json').then((production) => {
+    console.log(Object.getOwnPropertyNames(production[0]));
+    console.log(Object.getOwnPropertyNames(production[1]["('Date', '')"]));
+    console.log(production[0]["('Date', '')"])
+    console.log(production[1]["('3', 'OIL')"]); //gets me CML OIL 
+    console.log(production[1]["('Date', '')"]); //THESE GETS ME DATES
+    console.log(Object.keys(production[0]));
+
+    var test= Object.keys(production[0]);
+    console.log(test)
+    // production.forEach((day) => {console.log(day["('CML', 'GAS')"])  THISS WORKS
+    // })
+});
+
+
+
+
 function createPartnerOptions() {
     var partnerSelector = d3.select("#partner-name"); //SELECT <select> WHERE PARTNER NAMES WILL APPEAR
 
-    d3.json('./static/south_texas_nets.json').then((partnerOptions) => { //READ IN JSON FILE COINTAING ALL PARTNER'S NAMES
-        southTexasPartners = [] //EMPTY ARRAY TO CONTAIN ALL PARTNER'S NAME (REPEATED)
-        partnerOptions.forEach((partner) => { //LOOP THROUGH NET_INTEREST FILE
-            southTexasPartners.push(partner[1]) //PUSH ALL PARTNER'S NAME TO LIST 
-        });
-        partners = [...new Set(southTexasPartners)].sort()
+    
+    //d3.json('./static/south_texas_nets.json').then((partnerOptions) => { //READ IN JSON FILE COINTAING ALL PARTNER'S NAMES
+    d3.json('./static/partner_id.json').then((partners) => {
+        var southTexasPartners = Object.values(partners.partner_name) //EMPTY ARRAY TO CONTAIN ALL PARTNER'S NAME (REPEATED)
+        console.log(southTexasPartners);
+        
+        //partnerOptions.forEach((partner) => { //LOOP THROUGH NET_INTEREST FILE
+            //southTexasPartners.push(partner[1]) //PUSH ALL PARTNER'S NAME TO LIST
+
+        
+       // partners = [...new Set(southTexasPartners)].sort()
         //console.log(partners);
-        partners.forEach((partner) => {
+        southTexasPartners.forEach((partner) =>{
+            console.log(partner)
+        //partners.forEach((partner) => {
             partnerSelector
             .append('option')
             .text(partner)
             .property('Value', partner);
         })
-        document.getElementById("partner-name").size = partners.length + 1 //SELECT PARTER <select> AND MAKE IT THE SIZE OF THE LENGTH OF THE PARTNER'S LIST 
+        //document.getElementById("partner-name").size = southTexasPartners.length + 1 //SELECT PARTER <select> AND MAKE IT THE SIZE OF THE LENGTH OF THE PARTNER'S LIST 
     })
         
     }; //END OF createOptions() 
 
 createPartnerOptions() //CALL FUNCTION TO CREATE PARTNER'S NAME AS SOON AS THE PAGE LOADS
+
+
+
 
 
 
