@@ -1,7 +1,7 @@
 function createPartnerOptions() {
     var partnerSelector = d3.select("#partner-name"); //SELECT <select> WHERE PARTNER NAMES WILL APPEAR
     d3.json('./static/partner_id.json').then((partners) => { //READ IN JSON FILE COINTAING ALL PARTNER'S NAMES
-        console.log(partners);
+        //console.log(partners);
         var southTexasPartners = Object.values(partners.partner_name) //EMPTY ARRAY TO CONTAIN ALL PARTNER'S NAME (REPEATED)
         //console.log(southTexasPartners);
         southTexasPartners.forEach((partner) =>{
@@ -26,8 +26,8 @@ function createCurves() {
    
    
     d3.json('./static/ownership-oil.json').then((oilOwnership) => {
-        console.log(Object.getOwnPropertyNames(oilOwnership[0]));
-        
+       // console.log(Object.getOwnPropertyNames(oilOwnership[0]));
+       
         //READ IN .json CONTAINING PARTNER'S WELL AND INTEREST INFO
         var dates = [];
         var oil =[];
@@ -41,7 +41,7 @@ function createCurves() {
             }; 
          }); //CLOSE interest LOOP
          //console.log(dates)
-         console.log(oil)
+         //console.log(oil)
 
          d3.json('./static/ownership-gas.json').then((gasOwnership) => {
            
@@ -55,8 +55,8 @@ function createCurves() {
                 }; 
              }); //CLOSE interest LOOP
 
-             console.log(gas);
-             console.log(dates);
+             //console.log(gas);
+             //console.log(dates);
            
             
 
