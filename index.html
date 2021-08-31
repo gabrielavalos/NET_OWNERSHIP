@@ -22,33 +22,37 @@
         <div class="container-fluid pt-5 pb-3">
             <div class="row"><br></div>
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <h6>Select Partner</h6>
-                    <ul class="list-group">
-                        <li class="list-group-item">
+                    <!-- <ul class="list-group">
+                        <li class="list-group-item"> -->
                             <select id="partner-name">
                                 <option value="default">PARTNERS</option> 
                             </select>
-                        </li>
-                    </ul>
+                        <!-- </li>
+                    </ul> -->
                 </div>
-                <!-- <div class="col-md-3">
-                    <h6>Wells Partner in:</h6>  ceate dyanmic "partner" 
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <select id="well-options" multiple></select> 
-                        </li>
-                    </ul>
-                </div> -->
+                <div class="col-md-6">
+                    <h6>Options</h6>   
+                   
+                            <button type="button"class="btn btn-danger" id="inception">Historical Ownership</button>
+                       
+                
+                             <button type="button"class="btn btn-primary" id="inception">Linear</button> <!-- Trigger button for Historical Ownership in Linear view -->
+                             <button type="button"class="btn btn-primary" id="inception">Historical Ownership</button>
+                    
+                 
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <h1>Curves:</h1>
+                    <h5>You are currently viewing 365 day historical data.</h5>
+                    
                     <div id=oilDeclineCurve></div>
                     <div id=gasDeclineCurve></div>
                 </div>
             </div>
-            <script src="static/daily-partner-ownership.json"></script>
             <script src="static/ownership-oil.json"></script>
             <!-- <script src="static/partner_net.json"></script> -->
             <script src="js/net.js"></script>
