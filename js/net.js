@@ -31,10 +31,15 @@ function createCurves() {
         //READ IN .json CONTAINING PARTNER'S WELL AND INTEREST INFO
         var dates = [];
         var oil =[];
+
         
         oilOwnership.forEach((oilDay) => { //LOOP THROUGH  ROW OF DATA (interest)
-           // console.log(oilDay);
-            if (oilDay.hasOwnProperty(values) & oilDay[values] > 0)  {
+            //console.log(oilDay[values]);
+           
+         //  console.log(Object.getOwnPropertyNames(oilDay));
+            if (oilDay.hasOwnProperty(values) 
+            //& oilDay[values] > 0
+            )  {
                
                 dates.push(oilDay.Date)
                 oil.push(oilDay[values]) //THIS DOES NOT WORK
@@ -44,13 +49,21 @@ function createCurves() {
          //console.log(dates)
          //console.log(oil)
 
+         const firstProductionday = (element) => element > 0;
+         console.log(oil.findIndex(firstProductionday));
+
+         //FIND INDEX OF THE FIRST PLACE WHERE OIL DOES NOT EQUAL 0
+
          d3.json('./static/ownership-gas.json').then((gasOwnership) => {
            
             var gas = [];
             var gasDates = []
             gasOwnership.forEach((gasDay) => { //LOOP THROUGH  ROW OF DATA (interest)
                 //console.log(oilDay);
-                if (gasDay.hasOwnProperty(values) & gasDay[values] > 0) {
+               
+                if (gasDay.hasOwnProperty(values) 
+                //& gasDay[values] > 0
+                ) {
                    
                   
                     gas.push(gasDay[values]);
@@ -89,7 +102,8 @@ function createCurves() {
                      autorange: true},
                  xaxis: {
                      autorange: false,
-                     range: [dates[dates.length - 365], nextYearGraph] //365 to only show 1 year back, can make it into a variable, include an Inception button that does it from dates[0]
+                     range: [dates[0], nextYearGraph] //365 to only show 1 year back, can make it into a variable, include an Inception button that does it from dates[0]
+                    // range: [dates[dates.length - 365], nextYearGraph]
                     }
                 };
             Plotly.newPlot("oilDeclineCurve", dataOil, layoutOil);
