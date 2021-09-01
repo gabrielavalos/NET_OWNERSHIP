@@ -16,43 +16,43 @@
     <script src="https://cdn.jsdelivr.net/npm/underscore@1.13.1/underscore-umd-min.js"></script>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg fixed-top">
+        <nav class="navbar navbar-expand-lg">
             <a class="navbar-brand"><h2>SOUTH TEXAS NET OWNERSHIP</h2></a>
         </nav>
-        <div class="container-fluid pt-5 pb-3">
-            <div class="row"><br></div>
-            <div class="row">
-                <div class="col-md-4">
+       
+        <div class="container-fluid pb-3 pl-3"> <!-- PARTNER & OPTIONS CONTAINER -->
+            <div class="row"> <!-- FIRST ROW -->
+                <div class="col-md-2">   <!-- SELECT PARTNER COLUMN -->
                     <h6>Select Partner</h6>
-                    <!-- <ul class="list-group">
-                        <li class="list-group-item"> -->
-                            <select id="partner-name">
-                                <option value="default">PARTNERS</option> 
-                            </select>
-                        <!-- </li>
-                    </ul> -->
-                </div>
-                <div class="col-md-6">
-                    <h6>Options</h6>   
-                   
-                            <button type="button"class="btn btn-danger" id="inception">Historical Ownership</button>
-                       
-                
-                             <button type="button"class="btn btn-primary" id="inception">Linear</button> <!-- Trigger button for Historical Ownership in Linear view -->
-                             <button type="button"class="btn btn-primary" id="inception">Historical Ownership</button>
-                    
-                 
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <h1>Curves:</h1>
-                    <h5>You are currently viewing 365 day historical data.</h5>
-                    
+                    <select id="partner-name">
+                        <option value="default">PARTNERS</option>
+                    </select>
+                </div> <!-- END SELECT PARTNER COLUMN -->
+                <div class="col-md-10"> <!-- OPTIONS COLUMN -->
+                    <h6>Options</h6>
+                    <button type="button"class="btn btn-info" id="inception">🏠 Log</button>
+                    <button type="button"class="btn btn-info" id="inception">Log Historical</button>
+                    <button type="button"class="btn btn-warning" id="inception">Linear</button> <!-- Trigger button for Historical Ownership in Linear view -->
+                    <button type="button"class="btn btn-warning" id="inception">Linear Historical</button>
+                </div> <!-- END OPTIONS COLUMN -->
+            </div> <!-- END FIRST ROW -->
+        </div>  <!-- PARTNER & OPTIONS CONTAINER -->
+
+            <div class="container-fluid"> <!-- CURVES CONTAINER -->
+            <div class="row"> <!-- CURVES HEADING ROW -->
+                <div class="col-md-12"> <!-- CURVES COLUMNS-->
+                    <h1>Curves</h1>
+                    <h6>You are viewing data for the past year</h6>
+                </div> <!-- END CURVES COLUMNS END-->
+            </div> <!-- END CURVES HEADING ROW END-->
+                <div class="row"> <!-- CURVES ROW-->
+                <div class="col-md-12"> <!-- CURVES COLUMNS-->
                     <div id=oilDeclineCurve></div>
                     <div id=gasDeclineCurve></div>
-                </div>
-            </div>
+                </div> <!-- END CURVES COLUMNS-->
+                </div> <!-- END CURVES ROW-->
+            </div> <!-- END CURVES CONTAINER -->
+
             <script src="static/ownership-oil.json"></script>
             <!-- <script src="static/partner_net.json"></script> -->
             <script src="js/net.js"></script>
