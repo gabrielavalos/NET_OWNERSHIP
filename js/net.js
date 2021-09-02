@@ -76,12 +76,14 @@ function createCurves(t) {
                      zeroline: true,
                      showline: true,
                      type: t,
+                     gridcolor: '#bdbdbd'
                       //autorange: true
                     },
                  xaxis: {
-                     autorange: false,
-                     type: 'date',
-                     range: [dates[nonZero], nextYearGraph] //365 to only show 1 year back, can make it into a variable, include an Inception button that does it from dates[0]
+                    gridcolor: '#bdbdbd',
+                    autorange: false,
+                    type: 'date',
+                    range: [dates[nonZero], nextYearGraph] //365 to only show 1 year back, can make it into a variable, include an Inception button that does it from dates[0]
                     }
                 };
             Plotly.newPlot("oilDeclineCurve", dataOil, layoutOil);
@@ -95,16 +97,18 @@ function createCurves(t) {
                 }
             ];
             var layoutGas = {
-                title: "Gas BBL",
+                title: "Gas MCF",
                 yaxis: {
                     title: "MCFD Net",
                     zeroline: true,
                      showline: true,
-                     type: 'log',
-                     autorange: true
+                     type: t,
+                     autorange: true,
+                     gridcolor: '#bdbdbd',
                 },
                  xaxis: {
-                      autorange: false,
+                     gridcolor: '#bdbdbd',
+                     autorange: false,
                      range: [dates[nonZero], nextYearGraph]
                  }
                 };
