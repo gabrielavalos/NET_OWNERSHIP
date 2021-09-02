@@ -24,52 +24,44 @@ function createCurves() {
     values = Array.from(dropdownMenu).map(({ value }) => value); //SELECTED PARTNER INTO ARRAY
     console.log(values); //SELECTED PARTNER
    
-   
-    d3.json('./static/ownership-oil.json').then((oilOwnership) => {
+    d3.json('./static/ownership-oil.json').then((oilOwnership) => { //READ IN .json CONTAINING PARTNER'S WELL AND INTEREST INFO
        // console.log(Object.getOwnPropertyNames(oilOwnership[0]));
        
-        //READ IN .json CONTAINING PARTNER'S WELL AND INTEREST INFO
         var dates = [];
         var oil =[];
+        var gas = [];
 
-        
-        oilOwnership.forEach((oilDay) => { //LOOP THROUGH  ROW OF DATA (interest)
-            //console.log(oilDay[values]);
-           
-         //  console.log(Object.getOwnPropertyNames(oilDay));
-            if (oilDay.hasOwnProperty(values) 
-            //& oilDay[values] > 0
-            )  {
-               
-                dates.push(oilDay.Date)
-                oil.push(oilDay[values]) //THIS DOES NOT WORK
-                //console.log(oilDay[values])
-            }; 
-         }); //CLOSE interest LOOP
+        oilOwnership.forEach((oilDay) => { //LOOP THROUGH DATA -> oilDay IS EACH ROW IN THE DATA SET
+            dates.push(oilDay.Date);
+            oil.push(oilDay[values]);
+        }); //CLOSE interest LOOP
+
          //console.log(dates)
          //console.log(oil)
 
-         const firstProductionday = (element) => element > 0;
-         console.log(oil.findIndex(firstProductionday));
-
-         //FIND INDEX OF THE FIRST PLACE WHERE OIL DOES NOT EQUAL 0
-
          d3.json('./static/ownership-gas.json').then((gasOwnership) => {
-           
-            var gas = [];
-            var gasDates = []
+             
+          
             gasOwnership.forEach((gasDay) => { //LOOP THROUGH  ROW OF DATA (interest)
-                //console.log(oilDay);
-               
-                if (gasDay.hasOwnProperty(values) 
-                //& gasDay[values] > 0
-                ) {
-                   
-                  
-                    gas.push(gasDay[values]);
-                    gasDates.push(gasDay.Date)
-                }; 
-             }); //CLOSE interest LOOP
+                gas.push(gasDay[values]);
+              
+            }); //CLOSE interest LOOP
+             
+             //FIND THE INDEX OF THE FIRST NON-ZERO NUMBER
+             const firstProductionday = (element) => element > 0;
+             var oilNonZero = oil.findIndex(firstProductionday);
+             var gasNonZero = gas.findIndex(firstProductionday);
+             //console.log(oilNonZero);
+             //console.log(gasNonZero)
+
+             //COMPARING INDEX OF FIRST NONZEROS TO SPLICE AT THE LOWEST ONE
+             var nonZero = 0;
+             if (oilNonZero < gasNonZero){
+                 nonZero = oilNonZero
+                } else {nonZero = gasNonZero};
+                
+
+             // GETTING DATE FOR NEXT YEAR SO WE CAN HAVE EXTRA SPACE TO FORECAST //
              var mostRecentEntry = dates[dates.length-1]; //MOST RECENT DATE WITHOUT HOUR AS VARIABLE
              var mostRecentDate = new Date(mostRecentEntry) //MAKE MOST RECENT ENTRY A DATE 
              var nextYearsDate = new Date(mostRecentDate.setFullYear(mostRecentDate.getFullYear() + 1)); //GET YEAR FROM MOST RECENT DATE AND ADD A YEAR
@@ -78,15 +70,10 @@ function createCurves() {
              var nextDate= nextYearsDate.getDate() //GET NEXT YEARS DATE
              nextYearGraph = `${nextYear}-${nextMonth}-${nextDate}`; // CREATE FULL DATE FOR NEXT YEAR IN RIGHT FORMAT FOR AXIS
              console.log(`${nextYearGraph} is a year from the most recent production date.`);
-
-             console.log(gas);
-             console.log(dates);
-             console.log(oil);
-             console.log(gasDates)
              
              var dataOil = [{
-                 x: dates,
-                 y: oil,
+                 x: dates.slice(nonZero), //SLICE HERE BASED ON THE SMALLES INDEX NUMBER
+                 y: oil.slice(nonZero),
                  type: "line",
                  line:
                  {color: "green"}
@@ -99,18 +86,19 @@ function createCurves() {
                      zeroline: true,
                      showline: true,
                      type: 'log',
-                     autorange: true},
+                      //autorange: true
+                    },
                  xaxis: {
-                     autorange: false,
-                     range: [dates[0], nextYearGraph] //365 to only show 1 year back, can make it into a variable, include an Inception button that does it from dates[0]
-                    // range: [dates[dates.length - 365], nextYearGraph]
+                     //autorange: false,
+                     range: [dates.slice(nonZero), nextYearGraph] //365 to only show 1 year back, can make it into a variable, include an Inception button that does it from dates[0]
+                   
                     }
                 };
             Plotly.newPlot("oilDeclineCurve", dataOil, layoutOil);
 
             var dataGas = [{
-                x: gasDates,
-                y: gas,
+                x: dates.slice(nonZero),
+                y: gas.slice(nonZero),
                 type: "line",
                 line:
                     {color: "red"}
@@ -125,13 +113,18 @@ function createCurves() {
                      type: 'log',
                      autorange: true
                 },
-                xaxis: {
-                     autorange: false,
-                    range: [gasDates[0], nextYearGraph]}
+                 xaxis: {
+                      //autorange: false,
+                     range: [dates.slice(nonZero), nextYearGraph]
+                 }
                 };
             Plotly.newPlot("gasDeclineCurve", dataGas, layoutGas);
 
-        })})}
+        }
+        )
+    }
+        )
+    }
     //document.getElementById("partner-name").addEventListener("change", clearCurves) //WHEN THE SELECTION ON PARTNERS CHANGES, CLEAR OUT THE CURVES
 // });
 ; //END OF createOptions() 
