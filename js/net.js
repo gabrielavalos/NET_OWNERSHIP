@@ -86,7 +86,10 @@ function createCurves(t) {
                     range: [dates[nonZero], nextYearGraph] //365 to only show 1 year back, can make it into a variable, include an Inception button that does it from dates[0]
                     }
                 };
-            Plotly.newPlot("oilDeclineCurve", dataOil, layoutOil);
+
+                var config = {responsive: true} 
+
+            Plotly.newPlot("oilDeclineCurve", dataOil, layoutOil, config);
 
             var dataGas = [{
                 x: dates.slice(nonZero),
@@ -112,7 +115,10 @@ function createCurves(t) {
                      range: [dates[nonZero], nextYearGraph]
                  }
                 };
-            Plotly.newPlot("gasDeclineCurve", dataGas, layoutGas);
+
+                var config = {responsive: true}
+
+            Plotly.newPlot("gasDeclineCurve", dataGas, layoutGas, config);
         })
     })
 };
