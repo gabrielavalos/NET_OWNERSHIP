@@ -25,6 +25,7 @@ function createCurves(t) {
     console.log(values); //SELECTED PARTNER
    
     d3.json('./static/ownership-oil.json').then((oilOwnership) => { //READ IN .json CONTAINING PARTNER'S WELL AND INTEREST INFO
+       // console.log(Object.getOwnPropertyNames(oilOwnership[0]));
 
         var dates = [];
         var oil =[];
@@ -35,6 +36,7 @@ function createCurves(t) {
             oil.push(oilDay[values]);
         }); //CLOSE OIL LOOP
 
+        //console.log(oil);
          d3.json('./static/ownership-gas.json').then((gasOwnership) => { //LOOP THROUGH GAS DATA
             gasOwnership.forEach((gasDay) => { 
                 gas.push(gasDay[values]);
