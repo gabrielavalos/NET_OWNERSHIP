@@ -1,3 +1,8 @@
+////////////   TO DO  ///////////////////////////
+//  CREATE DROP DOWN FROM JSON FILE HEADER/INDEX
+//  ADD CREATE TABLE FUNCTION? PROPERTY SHOULD MATCH VALUES  //////
+
+
 function createPartnerOptions() {
     var partnerSelector = d3.select("#partner-name"); //SELECT <select> WHERE PARTNER NAMES WILL APPEAR
     d3.json('./static/partner_id.json').then((partners) => { //READ IN JSON FILE COINTAING ALL PARTNER'S NAMES
@@ -123,7 +128,16 @@ function createCurves(t) {
             Plotly.newPlot("gasDeclineCurve", dataGas, layoutGas, config);
         })
     })
+
+    d3.json('./static/daily-partner-ownership.json').then((daily) => { 
+        console.log(Object.getOwnPropertyNames(daily[0]));
+        console.log(daily[0]["('Casey', 'OIL')"]);
+        console.log("twice", values);
+        })
 };
+
+
+
  
 
 d3.select("#partner-name").on('change', function() {createCurves(t="log")}); //WHEN THERE IS A CHANGE IN THE PARTNERS SELECT, CREATE WELL OPTIONS FOR THAT PARTNER LOG
