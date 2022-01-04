@@ -30,31 +30,37 @@ function createCurves(t) {
     console.log(values); //SELECTED PARTNER
    
     //d3.json('./static/ownership-oil.json').then((oilOwnership) => { //READ IN .json CONTAINING PARTNER'S WELL AND INTEREST INFO
-    d3.json('./static/Individual_Ownership/'+values+'-ownership.json').then((ownership) => { //READ IN .json CONTAINING PARTNER'S WELL AND INTEREST INFO
-        console.log(Object.getOwnPropertyNames(ownership[0]));
-        console.log(ownership[0]);
-        console.log(typeof ownership[0].Date);
+    d3.json('./static/Individual_Ownership/'+values+'-ownership.json').then((oilOwnership) => { //READ IN .json CONTAINING PARTNER'S WELL AND INTEREST INFO
+       // console.log(Object.getOwnPropertyNames(oilOwnership[0]));
 
         var dates = [];
         var oil =[];
         var gas = [];
 
-        ownership.forEach((production) =>{
-           // dates.push(Date(production.Day));
-            dates.push(production.Date);
-            oil.push(production.Oil)
-            gas.push(production.Gas)
-        })
+        oilOwnership.forEach((oilDay) => { //LOOP THROUGH OIL DATA
+            dates.push(oilDay.Date);
+            oil.push(oilDay[values]);
+        }); //CLOSE OIL LOOP
 
-        console.log(typeof dates[0])
-        console.log(typeof new Date(dates[0]))
-        //console.log(new Date(dates[0]))
-        //console.log(Date.parse(dates[0]))
-        console.log(oil[0])
-        console.log(gas[0])
+        //console.log(oil);
+         d3.json('./static/ownership-gas.json').then((gasOwnership) => { //LOOP THROUGH GAS DATA
+            gasOwnership.forEach((gasDay) => { 
+                gas.push(gasDay[values]);
+            }); //CLOSE GAS LOOP
+             
+             //FIND THE INDEX OF THE FIRST NON-ZERO NUMBER
+             const firstProductionday = (element) => element > 0;
+             var oilNonZero = oil.findIndex(firstProductionday);
+             var gasNonZero = gas.findIndex(firstProductionday);
+
+             //COMPARE INDEX OF FIRST NONZEROS TO SPLICE AT THE LOWEST(FIRST) ONE
+             var nonZero = 0;
+             if (oilNonZero < gasNonZero){
+                 nonZero = oilNonZero
+                } else {nonZero = gasNonZero};
 
              // GET DATE FOR NEXT YEAR TO CREATE EXTRA SPACE FOR FORECAST //
-        var mostRecentEntry = dates[dates.length-1]; //MOST RECENT DATE WITHOUT HOUR AS VARIABLE
+             var mostRecentEntry = dates[dates.length-1]; //MOST RECENT DATE WITHOUT HOUR AS VARIABLE
              var mostRecentDate = new Date(mostRecentEntry) //MAKE MOST RECENT ENTRY A DATE 
              var nextYearsDate = new Date(mostRecentDate.setFullYear(mostRecentDate.getFullYear() + 1)); //GET YEAR FROM MOST RECENT DATE AND ADD A YEAR
              var nextYear= nextYearsDate.getFullYear() //GET NEXT YEARS DATE
@@ -64,8 +70,8 @@ function createCurves(t) {
              console.log(`${nextYearGraph} is a year from the most recent production date.`);
              
              var dataOil = [{
-                 x: dates, //SLICE BASED ON THE SMALLEST INDEX NUMBER CONTAINING THE FIRST NONZERO
-                 y: oil,
+                 x: dates.slice(nonZero), //SLICE BASED ON THE SMALLEST INDEX NUMBER CONTAINING THE FIRST NONZERO
+                 y: oil.slice(nonZero),
                  type: "line",
                  line:
                  {color: "green"}
@@ -78,14 +84,14 @@ function createCurves(t) {
                      zeroline: true,
                      showline: true,
                      type: t,
-                     gridcolor: '#bdbdbd',
-                    //autorange: true
+                     gridcolor: '#bdbdbd'
+                      //autorange: true
                     },
                  xaxis: {
                     gridcolor: '#bdbdbd',
-                   // autorange: false,
+                    autorange: false,
                     type: 'date',
-                    range: [dates, nextYearGraph] //365 to only show 1 year back, can make it into a variable, include an Inception button that does it from dates[0]
+                    range: [dates[nonZero], nextYearGraph] //365 to only show 1 year back, can make it into a variable, include an Inception button that does it from dates[0]
                     }
                 };
 
@@ -94,8 +100,8 @@ function createCurves(t) {
             Plotly.newPlot("oilDeclineCurve", dataOil, layoutOil, config);
 
             var dataGas = [{
-                x: dates,
-                y: gas,
+                x: dates.slice(nonZero),
+                y: gas.slice(nonZero),
                 type: "line",
                 line:
                     {color: "red"}
@@ -111,19 +117,24 @@ function createCurves(t) {
                      autorange: true,
                      gridcolor: '#bdbdbd',
                 },
-                xaxis: {
-                    gridcolor: '#bdbdbd',
-                   // autorange: false,
-                    type: 'date',
-                    range: [dates, nextYearGraph] //365 to only show 1 year back, can make it into a variable, include an Inception button that does it from dates[0]
-                    }
+                 xaxis: {
+                     gridcolor: '#bdbdbd',
+                     autorange: false,
+                     range: [dates[nonZero], nextYearGraph]
+                 }
                 };
 
                 var config = {responsive: true}
 
             Plotly.newPlot("gasDeclineCurve", dataGas, layoutGas, config);
-        
+        })
     })
+
+    d3.json('./static/daily-partner-ownership.json').then((daily) => { 
+        console.log(Object.getOwnPropertyNames(daily[0]));
+        console.log(daily[0]["('Casey', 'OIL')"]);
+        console.log("twice", values);
+        })
 };
 
 
