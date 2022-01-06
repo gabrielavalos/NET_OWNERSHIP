@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SOUTH TEXAS NET INTERESTS</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"/>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/underscore@1.13.1/underscore-umd-min.js"></script>
+
+    <!-- FAVICON LINKS -->
+    <link rel="apple-touch-icon" sizes="180x180" href="static/favicon_package/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="static/favicon_package/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="static/favicon_package/favicon-16x16.png">
+    <link rel="manifest" href="static/favicon_package/site.webmanifest">
+    <link rel="mask-icon" href="static/favicon_package/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg">
+            <a class="navbar-brand"><h2>SOUTH, EAST & EAST WB NET OWNERSHIP</h2></a>
+        </nav>
+       
+        <div class="container-fluid"> <!-- PARTNER & OPTIONS CONTAINER -->
+            <div class="row"> <!-- FIRST ROW -->
+                <div class="col-md-2">   <!-- SELECT PARTNER COLUMN -->
+                    <h6>Select Partner</h6>
+                    <select id="partner-name">
+                        <option value="default">PARTNERS</option>
+                    </select>
+                </div> <!-- END SELECT PARTNER COLUMN -->
+                <div class="col-md-3"> <!-- OPTIONS COLUMN -->
+                    <h6>View Options:</h6>
+                    <button type="button"class="btn btn-info" id="log">Logarithmic</button>
+                    <button type="button"class="btn btn-warning" id="linear">Linear</button> <!-- Trigger button for Historical Ownership in Linear view -->
+                    <button type="button"class="btn btn-danger" id="table">Table</button> 
+                </div> <!-- END OPTIONS COLUMN -->
+            </div> <!-- END FIRST ROW -->
+            <div class="row"> <!-- CURVES HEADING ROW -->
+                <div class="col-md-12"> <!-- CURVES COLUMNS-->
+                    <div class="container-fluid"> 
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div id="table" class="col-md-8">
+                <table class="table table-sm table-striped table-bordered table-hover">
+                    <thead class="thead-dark">
+                  <tr>
+                    <th>Date</th>
+                    <th>Oil (MBBLS)</th>
+                    <th>Gas (MMCF)</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="col-md-2">
+        </div>
+        <script src="js/net.js"></script>
+    </body>
+    </html>
+        
