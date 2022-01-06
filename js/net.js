@@ -46,12 +46,12 @@ function createCurves(t) {
             gas.push(production.Gas)
         })
 
-        console.log(typeof dates[0])
-        console.log(typeof new Date(dates[0]))
+        console.log(dates[0])
+        //console.log(typeof new Date(dates[0]))
         //console.log(new Date(dates[0]))
         //console.log(Date.parse(dates[0]))
-        console.log(oil[0])
-        console.log(gas[0])
+        //console.log(oil[0])
+        //console.log(gas[0])
 
              // GET DATE FOR NEXT YEAR TO CREATE EXTRA SPACE FOR FORECAST //
         var mostRecentEntry = dates[dates.length-1]; //MOST RECENT DATE WITHOUT HOUR AS VARIABLE
@@ -83,9 +83,9 @@ function createCurves(t) {
                     },
                  xaxis: {
                     gridcolor: '#bdbdbd',
-                   // autorange: false,
+                    autorange: false,
                     type: 'date',
-                    range: [dates, nextYearGraph] //365 to only show 1 year back, can make it into a variable, include an Inception button that does it from dates[0]
+                    range: [dates[0], nextYearGraph] //365 to only show 1 year back, can make it into a variable, include an Inception button that does it from dates[0]
                     }
                 };
 
@@ -115,7 +115,7 @@ function createCurves(t) {
                     gridcolor: '#bdbdbd',
                    // autorange: false,
                     type: 'date',
-                    range: [dates, nextYearGraph] //365 to only show 1 year back, can make it into a variable, include an Inception button that does it from dates[0]
+                    range: [dates[0], nextYearGraph] //365 to only show 1 year back, can make it into a variable, include an Inception button that does it from dates[0]
                     }
                 };
 
