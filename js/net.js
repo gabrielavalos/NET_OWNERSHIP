@@ -30,10 +30,10 @@ function createCurves(t) {
     console.log(values); //SELECTED PARTNER
    
     //d3.json('./static/ownership-oil.json').then((oilOwnership) => { //READ IN .json CONTAINING PARTNER'S WELL AND INTEREST INFO
-    d3.json('./static/Individual_Ownership/'+values+'-ownership.json').then((ownership) => { //READ IN .json CONTAINING PARTNER'S WELL AND INTEREST INFO
-        console.log(Object.getOwnPropertyNames(ownership[0]));
-        console.log(ownership[0]);
-        console.log(typeof ownership[0].Date);
+    d3.json('./static/Individual_Ownership/'+values+'.json').then((ownership) => { //READ IN .json CONTAINING PARTNER'S WELL AND INTEREST INFO
+        //console.log(Object.getOwnPropertyNames(ownership[0]));
+        //console.log(ownership[0]);
+       // console.log(typeof ownership[0].Date);
 
         var dates = [];
         var oil =[];
@@ -46,7 +46,7 @@ function createCurves(t) {
             gas.push(production.Gas)
         })
 
-        console.log(dates[0])
+        //console.log(dates[0])
         //console.log(typeof new Date(dates[0]))
         //console.log(new Date(dates[0]))
         //console.log(Date.parse(dates[0]))
